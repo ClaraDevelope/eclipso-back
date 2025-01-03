@@ -11,7 +11,7 @@ const usuarioSchema = new mongoose.Schema(
       unique: true, 
       match: [/\S+@\S+\.\S+/, 'Please use a valid email address']
     },
-    telefono: { type: String, trim: true, required: false },
+    phone: { type: String, trim: true, required: false },
     img: { type: String, trim: true, required: false },
     eventosAsistencia: [
       {

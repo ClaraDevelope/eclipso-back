@@ -1,4 +1,6 @@
+const { generarLlave } = require("../../utils/jwt");
 const Usuario = require("../models/user")
+const bcrypt = require('bcrypt')
 
 const getUsuarios = async (req, res, next) => {
   try {
@@ -49,9 +51,6 @@ const register = async (req, res, next) => {
       email: req.body.email,
       rol: 'user'
     })
-    if (req.file) {
-      newUsuario.img = req.file.path
-    }
 
     const usuario = await newUsuario.save()
     return res.status(201).json(usuario)
@@ -63,12 +62,12 @@ const register = async (req, res, next) => {
 
 const login = async (req, res, next) => {
   try {
-    const { userName, password } = req.body
+    const { email, password } = req.body
 
-    if (!userName || typeof userName !== 'string') {
+    if (!email || typeof email !== 'string') {
       return res.status(400).json({ error: 'Nombre de usuario no válido' })
     }
-    const usuario = await Usuario.findOne({ userName })
+    const usuario = await Usuario.findOne({ email })
 
     if (!usuario) {
       return res.status(400).json({ error: 'Usuario no encontrado' })
