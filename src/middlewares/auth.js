@@ -1,5 +1,5 @@
-// const Evento = require('../api/models/evento')
-const Usuario = require('../api/models/usuario')
+// const Evento = require('../api/models/event')
+const Usuario = require('../api/models/user')
 const { verificarLlave } = require('../utils/jwt')
 
 const verificarToken = async (req, res, next) => {
