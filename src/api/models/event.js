@@ -17,13 +17,15 @@ const eventoSchema = new mongoose.Schema(
     creador: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'usuarios'
-    }
+    },
+    etiquetas: { type: [String], default: [] }  
   },
   {
     timestamps: true,
     collection: 'eventos'
   }
 )
+
 
 const Evento = mongoose.model('eventos', eventoSchema, 'eventos')
 module.exports = Evento
