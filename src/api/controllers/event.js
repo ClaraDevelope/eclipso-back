@@ -3,8 +3,8 @@ const Usuario = require('../models/user')
 const getEventos = async (req, res) => {
   try {
     const eventos = await Evento.find()
-      // .populate([{ path: 'asistentes' }, { path: 'creador' }])
-      // .sort({ fecha: 1 });
+      .populate([{ path: 'asistentes' }, { path: 'creador' }])
+      .sort({ fecha: 1 });
 
     return res.status(200).json(eventos);
   } catch (error) {
@@ -43,9 +43,6 @@ const getEventosConFiltros = async (req, res) => {
     return res.status(400).json('Error al hacer el get de los eventos con filtros');
   }
 };
-
-
-
 
 const getEventoById = async (req, res, next) => {
   try {

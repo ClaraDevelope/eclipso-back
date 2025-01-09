@@ -29,24 +29,22 @@ const isAuth = async (req, res, next) => {
     return res.status(400).json({ error: 'No estás autorizado' })
   }
 }
+const isCreator = async (req, res, next) => {
+  try {
+    await verificarToken(req, res, async () => {
+      const usuario = req.usuario
+      const eventoId = req.params.id
+      const evento = await Evento.findById(eventoId)
 
-// const isCreator = async (req, res, next) => {
-//   try {
-//     await verificarToken(req, res, async () => {
-//       const usuario = req.usuario
-//       const eventoId = req.params.id
-//       const evento = await Evento.findById(eventoId)
+      if (!evento || evento.creador.toString() !== usuario._id.toString()) {
+        throw new Error('No eres el creador del evento')
+      }
 
-//       if (!evento || evento.creador.toString() !== usuario._id.toString()) {
-//         throw new Error('No eres el creador del evento')
-//       }
-
-//       next()
-//     })
-//   } catch (error) {
-//     console.error(error)
-//     return res.status(400).json({ error: error.message })
-//   }
-// }
-// module.exports = { isAuth, isCreator }
-module.exports = { isAuth }
+      next()
+    })
+  } catch (error) {
+    console.error(error)
+    return res.status(400).json({ error: error.message })
+  }
+}
+module.exports = { isAuth, isCreator }

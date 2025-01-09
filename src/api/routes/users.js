@@ -5,10 +5,12 @@ const {
   getUsuarios,
   register,
   login,
+  getUsuariosbyId,
 } = require('../controllers/users')
 
 const userRouter = require('express').Router()
 userRouter.get('/', getUsuarios)
+userRouter.get('/:id',getUsuariosbyId )
 userRouter.post('/register', register)
 userRouter.post('/login', login)
 userRouter.post('/:id/create', isAuth, uploadEvento, postEvento)

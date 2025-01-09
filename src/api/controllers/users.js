@@ -29,7 +29,7 @@ const getUsuarios = async (req, res, next) => {
 const getUsuariosbyId = async (req, res, next) => {
   try {
     const { id } = req.params
-    const usuario = await Usuario.findById(id)
+    const usuario = await Usuario.findById(id).populate('eventosOrganizados')
     return res.status(200).json(usuario)
   } catch (error) {
     return res.status(400).json('error al hacer get por ID de los usuarios')

@@ -9,10 +9,10 @@ const usuarioSchema = new mongoose.Schema(
       trim: true, 
       required: true, 
       unique: true, 
-      match: [/\S+@\S+\.\S+/, 'Please use a valid email address']
+      match: [/\S+@\S+\.\S+/, 'Usa una dirección de email válida']
     },
     phone: { type: String, trim: true, required: false },
-    img: { type: String, trim: true, required: false },
+    img: { type: String, trim: true, required: false, default:'./usuario-avatar.webp'},
     eventosAsistencia: [
       {
         type: mongoose.Schema.Types.ObjectId,
