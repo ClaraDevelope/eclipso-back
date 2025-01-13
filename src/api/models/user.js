@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const bcrypt = require('bcrypt')
+const mongoose = require('mongoose');
+
 const usuarioSchema = new mongoose.Schema(
   {
     userName: { type: String, trim: true, required: true },
@@ -12,7 +12,7 @@ const usuarioSchema = new mongoose.Schema(
       match: [/\S+@\S+\.\S+/, 'Usa una dirección de email válida']
     },
     phone: { type: String, trim: true, required: false },
-    img: { type: String, trim: true, required: false, default:'./usuario-avatar.webp'},
+    img: { type: String, trim: true, required: false, default: './usuario-avatar.webp' },
     eventosAsistencia: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -61,11 +61,8 @@ const usuarioSchema = new mongoose.Schema(
     timestamps: true,
     collection: 'usuarios'
   }
-)
+);
 
-usuarioSchema.pre('save', function () {
-  this.password = bcrypt.hashSync(this.password, 10)
-})
+const Usuario = mongoose.model('usuarios', usuarioSchema, 'usuarios');
+module.exports = Usuario;
 
-const Usuario = mongoose.model('usuarios', usuarioSchema, 'usuarios')
-module.exports = Usuario

@@ -12,8 +12,14 @@ const eventoRouter = require('express').Router()
 
 eventoRouter.get('/', getEventos)
 eventoRouter.get('/filtros', getEventosConFiltros)
-// eventoRouter.patch('/:id/auth/:userId', updateEvento)
+eventoRouter.patch(
+  '/:id/auth/:userId',
+  isAuth,
+  isCreator,
+  uploadEvento,
+  updateEvento
+)
 eventoRouter.get('/:id', getEventoById)
-// eventoRouter.delete('/:id', isAuth, isCreator, deleteEvento)
+eventoRouter.delete('/:id', isAuth, isCreator, deleteEvento)
 
 module.exports = { eventoRouter }

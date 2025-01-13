@@ -1,4 +1,5 @@
-// const Evento = require('../api/models/event')
+
+const Evento = require('../api/models/event')
 const Usuario = require('../api/models/user')
 const { verificarLlave } = require('../utils/jwt')
 
@@ -29,6 +30,7 @@ const isAuth = async (req, res, next) => {
     return res.status(400).json({ error: 'No estás autorizado' })
   }
 }
+
 const isCreator = async (req, res, next) => {
   try {
     await verificarToken(req, res, async () => {
@@ -47,4 +49,5 @@ const isCreator = async (req, res, next) => {
     return res.status(400).json({ error: error.message })
   }
 }
+
 module.exports = { isAuth, isCreator }
